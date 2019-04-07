@@ -1,0 +1,43 @@
+﻿<Window x:Class="UnixusTracking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Unixus Coding Exercise" Height="500" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="MapVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Label x:Name="hint" Content="Please enter House Airway Bill (HAWB) Number" HorizontalContentAlignment="Left"  HorizontalAlignment="Left" Margin="29,22,0,0" VerticalAlignment="Top" Width="490" Height="23"/>
+        <TextBox x:Name="hawbNumber" GotFocus="ToggleLabelHint" LostFocus="ToggleLabelHint" Height="23" Margin="29,22,0,0" TextWrapping="NoWrap" TextAlignment="Left" Text="" VerticalAlignment="Top" Background="Transparent" HorizontalAlignment="Left" Width="490" KeyDown="EnterDown"/>
+        <Button Content="Search" Click="SearchButton_Click" HorizontalAlignment="Left" Margin="524,25,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Reset" Click="ResetButton_Click" Margin="604,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75"/>
+        <Label x:Name="error" Content="Please insert hawb number" Visibility="Collapsed" HorizontalAlignment="Left" Margin="30,39,0,0" VerticalAlignment="Top" Width="490" Foreground="Red" FontStyle="Italic" FontSize="10"/>
+        <ProgressBar Margin="30,45,0,0" x:Name="progressBar" Visibility="Collapsed" Height="3" IsIndeterminate="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="489"/>
+        <DataGrid x:Name="dataGrid" Margin="29,65,31.556,9.667" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Transaction Date" Binding="{Binding TransactionDate}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Station Code" Binding="{Binding StationCode}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Station Description" Binding="{Binding StationDescription}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Country Code" Binding="{Binding CountryCode}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Country Description" Binding="{Binding CountryDescription}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Event Code" Binding="{Binding EventCode}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Event Description" Binding="{Binding EventDescription}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Reason Code" Binding="{Binding ReasonCode}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Reason Description" Binding="{Binding ReasonDescription}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Company Name" Binding="{Binding CompanyName}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Station Name" Binding="{Binding StationName}" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Remarks" Binding="{Binding Remarks}" Width="*" ></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Visibility="{Binding Path=MapVisibility, Converter={StaticResource MapVisibilityConverter} }"
+                                    Click="ViewMap" Tag="{Binding StationName}">View in Map</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
